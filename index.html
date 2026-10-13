@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseBeat — Modern Music Experience</title>
+  <meta name="description" content="A modern, stylish, and responsive web music player featuring glassmorphism design, smart playlists, audio visualization, and real-time playback controls.">
+  <meta name="theme-color" content="#0b0e17">
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container" id="app">
+    <!-- MOBILE HEADER -->
+    <header class="mobile-header" id="mobileHeader">
+      <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <div class="brand-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </div>
+        <span class="logo-text">Pulse<span class="accent">Beat</span></span>
+      </div>
+      <button class="icon-btn" id="mobileSearchTrigger" aria-label="Search Songs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="logo-icon glow-pulse">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </div>
+          <div class="logo-info">
+            <span class="logo-text">Pulse<span class="accent">Beat</span></span>
+            <span class="logo-tagline">Web Audio Studio</span>
+          </div>
+        </div>
+        <button class="icon-btn mobile-close-btn" id="mobileCloseBtn" aria-label="Close navigation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">MENU</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <button class="nav-link active" data-view="home" id="navHome">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Home</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-view="library" id="navLibrary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+              <span>Music Library</span>
+              <span class="badge" id="libraryCountBadge">0</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-view="favorites" id="navFavorites">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+              <span>Favorites</span>
+              <span class="badge badge-accent" id="favoritesCountBadge">0</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-view="recent" id="navRecent">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>Recently Played</span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="nav-section-title">CURATED GENRES</div>
+        <ul class="nav-list" id="genreNavList">
+          <li class="nav-item"><button class="nav-link filter-pill" data-genre="all"><span>All Tracks</span></button></li>
+          <li class="nav-item"><button class="nav-link filter-pill" data-genre="Electronic"><span>Electronic & Dance</span></button></li>
+          <li class="nav-item"><button class="nav-link filter-pill" data-genre="Synthwave"><span>Synthwave & Retro</span></button></li>
+          <li class="nav-item"><button class="nav-link filter-pill" data-genre="Ambient"><span>Ambient & Chill</span></button></li>
+          <li class="nav-item"><button class="nav-link filter-pill" data-genre="Acoustic"><span>Melodic & Piano</span></button></li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Mini Playing Preview Widget -->
+      <div class="sidebar-now-playing glass-card" id="sidebarMiniCard">
+        <div class="mini-card-cover" id="sidebarCover">
+          <img src="" alt="Now playing album art" id="sidebarCoverImg">
+          <div class="sound-wave-bars" id="sidebarSoundWave">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="mini-card-details">
+          <div class="mini-card-title marquee-container">
+            <span id="sidebarTrackTitle">No Track Playing</span>
+          </div>
+          <div class="mini-card-artist" id="sidebarTrackArtist">Choose a song</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- MAIN CONTENT VIEW -->
+    <main class="main-content" id="mainContent">
+      <!-- TOP SEARCH & USER BAR -->
+      <div class="top-nav-bar">
+        <div class="search-container">
+          <div class="search-input-wrapper glass-panel">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="searchInput" 
+              class="search-input" 
+              placeholder="Search by song title, artist, or album..." 
+              autocomplete="off"
+              aria-label="Search songs"
+            >
+            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <div class="keyboard-shortcuts-pill" title="Keyboard Shortcuts: Space=Play/Pause, Left/Right=Seek, Up/Down=Volume, M=Mute">
+            <kbd>Space</kbd> Play • <kbd>⇄</kbd> Seek • <kbd>⇅</kbd> Vol
+          </div>
+          <div class="user-profile-badge glass-panel">
+            <div class="user-avatar">
+              <span>CS</span>
+            </div>
+            <div class="user-text">
+              <span class="user-name">CodeSoft Intern</span>
+              <span class="user-status">Task 4 • Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DYNAMIC CONTENT SECTIONS -->
+      <div class="content-scroll-area" id="contentScrollArea">
+        
+        <!-- WELCOME HERO BANNER -->
+        <section class="hero-banner glass-card" id="heroBanner">
+          <div class="hero-glow"></div>
+          <div class="hero-content">
+            <span class="hero-eyebrow">PREMIUM AUDIO EXPERIENCE</span>
+            <h1 class="hero-title">Your Music, <span class="gradient-text">Your Mood</span></h1>
+            <p class="hero-desc">Immerse yourself in high-fidelity sound, dynamic visualizers, and curated soundscapes tailored for focus and energy.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" id="heroPlayBtn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Play Featured</span>
+              </button>
+              <button class="btn btn-secondary" id="heroShuffleBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 3 21 3 21 8"></polyline>
+                  <line x1="4" y1="20" x2="21" y2="3"></line>
+                  <polyline points="21 16 21 21 16 21"></polyline>
+                  <line x1="15" y1="15" x2="21" y2="21"></line>
+                  <line x1="4" y1="4" x2="9" y2="9"></line>
+                </svg>
+                <span>Shuffle Library</span>
+              </button>
+            </div>
+          </div>
+          <div class="hero-featured-card glass-panel" id="heroFeaturedCard">
+            <div class="featured-badge">FEATURED HIT</div>
+            <div class="featured-art">
+              <img src="" alt="Featured artwork" id="heroFeaturedImg">
+              <button class="featured-play-floating" id="heroFeaturedPlayBtn" aria-label="Play featured song">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              </button>
+            </div>
+            <div class="featured-meta">
+              <h3 id="heroFeaturedTitle">Neon Horizon</h3>
+              <p id="heroFeaturedArtist">Synthwave Collective</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- GENRE FILTER PILLS -->
+        <div class="filter-pills-bar" id="filterPillsBar">
+          <button class="filter-chip active" data-genre="all">All Songs</button>
+          <button class="filter-chip" data-genre="Electronic">Electronic</button>
+          <button class="filter-chip" data-genre="Synthwave">Synthwave</button>
+          <button class="filter-chip" data-genre="Ambient">Ambient</button>
+          <button class="filter-chip" data-genre="Acoustic">Acoustic & Piano</button>
+        </div>
+
+        <!-- RECENTLY PLAYED SECTION -->
+        <section class="dashboard-section" id="recentlyPlayedSection">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h2 class="section-title">Recently Played</h2>
+              <span class="section-subtitle">Jump back into your recent tracks</span>
+            </div>
+            <button class="view-all-btn" data-view="recent" id="viewAllRecentBtn">View History</button>
+          </div>
+          <div class="cards-carousel" id="recentCardsGrid">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+        <!-- FAVORITES SECTION -->
+        <section class="dashboard-section" id="favoritesSection">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h2 class="section-title">Your Favorites</h2>
+              <span class="section-subtitle">Handpicked tracks you love</span>
+            </div>
+            <span class="badge badge-accent" id="favoritesSectionCount">0 tracks</span>
+          </div>
+          <div class="cards-grid" id="favoritesCardsGrid">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+        <!-- FULL MUSIC LIBRARY SECTION -->
+        <section class="dashboard-section" id="librarySection">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <h2 class="section-title" id="librarySectionTitle">Complete Music Library</h2>
+              <span class="section-subtitle" id="librarySubtitle">All tracks with live playback metadata</span>
+            </div>
+            <div class="library-stats">
+              <span id="trackCountLabel">8 Tracks</span>
+            </div>
+          </div>
+
+          <!-- TRACK LIST TABLE / LIST VIEW -->
+          <div class="tracklist-container glass-card">
+            <div class="tracklist-header">
+              <div class="th-col th-index">#</div>
+              <div class="th-col th-title">TITLE</div>
+              <div class="th-col th-album">ALBUM</div>
+              <div class="th-col th-genre">GENRE</div>
+              <div class="th-col th-duration">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="th-col th-action">FAV</div>
+            </div>
+            <div class="tracklist-body" id="tracklistBody">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+
+          <!-- EMPTY SEARCH STATE -->
+          <div class="empty-state glass-card" id="emptyState" style="display:none;">
+            <div class="empty-state-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </div>
+            <h3 class="empty-state-title">No songs found</h3>
+            <p class="empty-state-desc" id="emptyStateDesc">We couldn't find any songs matching your search query. Try another keyword or reset filters.</p>
+            <button class="btn btn-secondary" id="resetSearchBtn">Reset Search</button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- BOTTOM FIXED PLAYBACK BAR -->
+    <footer class="player-bar glass-card" id="playerBar">
+      <!-- LEFT: CURRENT SONG INFO -->
+      <div class="player-left">
+        <div class="now-playing-art" id="nowPlayingArtContainer">
+          <img src="" alt="Album Artwork" id="nowPlayingArt" class="album-thumb">
+          <div class="art-playing-overlay" id="artPlayingOverlay">
+            <div class="mini-visualizer-wave">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+        <div class="now-playing-info">
+          <div class="track-title-wrapper marquee-container">
+            <span class="track-title" id="nowPlayingTitle">Select a track to start</span>
+          </div>
+          <div class="track-artist-wrapper">
+            <span class="track-artist" id="nowPlayingArtist">PulseBeat Audio</span>
+            <span class="track-album-badge" id="nowPlayingAlbumBadge">Ready</span>
+          </div>
+        </div>
+        <button class="heart-btn" id="playerFavoriteBtn" aria-label="Favorite track" title="Add to favorites">
+          <svg viewBox="0 0 24 24" class="heart-icon" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- CENTER: CONTROLS & PROGRESS BAR -->
+      <div class="player-center">
+        <div class="playback-controls">
+          <!-- SHUFFLE -->
+          <button class="control-btn" id="shuffleBtn" aria-label="Shuffle" title="Shuffle (S)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+            <span class="control-dot" id="shuffleIndicator"></span>
+          </button>
+
+          <!-- PREVIOUS -->
+          <button class="control-btn" id="prevBtn" aria-label="Previous Track" title="Previous Track">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="19 20 9 12 19 4 19 20"></polygon>
+              <line x1="5" y1="19" x2="5" y2="5"></line>
+            </svg>
+          </button>
+
+          <!-- PLAY / PAUSE -->
+          <button class="control-btn play-pause-btn" id="playPauseBtn" aria-label="Play" title="Play / Pause (Space)">
+            <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+              <rect x="6" y="4" width="4" height="16"></rect>
+              <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+          </button>
+
+          <!-- NEXT -->
+          <button class="control-btn" id="nextBtn" aria-label="Next Track" title="Next Track">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 4 15 12 5 20 5 4"></polygon>
+              <line x1="19" y1="5" x2="19" y2="19"></line>
+            </svg>
+          </button>
+
+          <!-- REPEAT -->
+          <button class="control-btn" id="repeatBtn" aria-label="Repeat" title="Repeat (Off / All / One)">
+            <svg id="repeatAllIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="17 1 21 5 17 9"></polyline>
+              <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+              <polyline points="7 23 3 19 7 15"></polyline>
+              <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+            </svg>
+            <span class="repeat-one-badge" id="repeatOneBadge">1</span>
+            <span class="control-dot" id="repeatIndicator"></span>
+          </button>
+        </div>
+
+        <!-- PROGRESS & TIME SEEKER -->
+        <div class="progress-container">
+          <span class="time-label current-time" id="currentTimeLabel">0:00</span>
+          <div class="seek-bar-wrapper" id="seekBarWrapper">
+            <input 
+              type="range" 
+              id="seekBar" 
+              class="seek-slider" 
+              min="0" 
+              max="100" 
+              value="0" 
+              step="0.1"
+              aria-label="Seek track position"
+            >
+            <div class="seek-fill" id="seekFill"></div>
+            <div class="seek-hover-time" id="seekHoverTime">0:00</div>
+          </div>
+          <span class="time-label total-duration" id="totalDurationLabel">0:00</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: AUDIO VISUALIZER, VOLUME & EXPAND -->
+      <div class="player-right">
+        <!-- REALTIME AUDIO CANVAS VISUALIZER -->
+        <div class="visualizer-container" id="visualizerContainer" title="Live audio visualizer">
+          <canvas id="visualizerCanvas" width="90" height="28"></canvas>
+        </div>
+
+        <!-- VOLUME CONTROLS -->
+        <div class="volume-container">
+          <button class="volume-btn" id="muteBtn" aria-label="Mute or Unmute" title="Mute/Unmute (M)">
+            <svg id="volHighIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg id="volLowIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg id="volMuteIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </button>
+          <div class="volume-slider-wrapper">
+            <input 
+              type="range" 
+              id="volumeSlider" 
+              class="volume-slider" 
+              min="0" 
+              max="1" 
+              step="0.01" 
+              value="0.8" 
+              aria-label="Volume slider"
+            >
+            <div class="volume-fill" id="volumeFill"></div>
+          </div>
+        </div>
+
+        <!-- FULLSCREEN / EXPAND PLAYER MODAL TOGGLE -->
+        <button class="expand-btn" id="expandPlayerBtn" aria-label="Expand player view" title="Expand view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+    <!-- EXPANDED FULL-SCREEN MODAL PLAYER (Mobile & Desktop Cinematic View) -->
+    <div class="modal-player" id="modalPlayer">
+      <div class="modal-player-backdrop"></div>
+      <div class="modal-player-content glass-card">
+        <div class="modal-header">
+          <button class="icon-btn" id="modalCloseBtn" aria-label="Close expanded player">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="modal-header-meta">
+            <span class="modal-eyebrow">NOW PLAYING FROM LIBRARY</span>
+            <span class="modal-album" id="modalAlbumTitle">Album Name</span>
+          </div>
+          <button class="heart-btn" id="modalFavoriteBtn" aria-label="Favorite song">
+            <svg viewBox="0 0 24 24" class="heart-icon" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-artwork-wrapper">
+          <div class="modal-vinyl-disk" id="modalVinylDisk">
+            <img src="" alt="Album artwork enlarged" id="modalArtworkImg" class="modal-artwork">
+          </div>
+        </div>
+
+        <div class="modal-track-info">
+          <h2 class="modal-title" id="modalTrackTitle">Song Title</h2>
+          <p class="modal-artist" id="modalTrackArtist">Artist Name</p>
+        </div>
+
+        <!-- Modal Progress -->
+        <div class="modal-progress-wrap">
+          <div class="seek-bar-wrapper">
+            <input 
+              type="range" 
+              id="modalSeekBar" 
+              class="seek-slider" 
+              min="0" 
+              max="100" 
+              value="0" 
+              step="0.1"
+              aria-label="Seek track"
+            >
+            <div class="seek-fill" id="modalSeekFill"></div>
+          </div>
+          <div class="modal-time-row">
+            <span id="modalCurrentTime">0:00</span>
+            <span id="modalTotalDuration">0:00</span>
+          </div>
+        </div>
+
+        <!-- Modal Controls -->
+        <div class="modal-controls">
+          <button class="control-btn" id="modalShuffleBtn" aria-label="Shuffle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+            <span class="control-dot" id="modalShuffleIndicator"></span>
+          </button>
+          <button class="control-btn" id="modalPrevBtn" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></svg>
+          </button>
+          <button class="control-btn play-pause-btn modal-play-btn" id="modalPlayPauseBtn" aria-label="Play/Pause">
+            <svg id="modalPlayIcon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg id="modalPauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </button>
+          <button class="control-btn" id="modalNextBtn" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+          </button>
+          <button class="control-btn" id="modalRepeatBtn" aria-label="Repeat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+            <span class="repeat-one-badge" id="modalRepeatOneBadge">1</span>
+            <span class="control-dot" id="modalRepeatIndicator"></span>
+          </button>
+        </div>
+
+        <div class="modal-footer-visualizer">
+          <canvas id="modalVisualizerCanvas" width="320" height="40"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toastNotification">
+      <span class="toast-message" id="toastMessage">Song added to favorites</span>
+    </div>
+
+    <!-- HIDDEN AUDIO ELEMENT -->
+    <audio id="audioPlayer" preload="metadata" crossorigin="anonymous"></audio>
+  </div>
+
+  <!-- SCRIPT FILES -->
+  <script src="js/data.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
